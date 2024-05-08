@@ -1,0 +1,44 @@
+import psycopg2
+
+# Estabelecer a conexão
+conexao = psycopg2.connect(
+    host="localhost",
+    database="you_database",
+    user="you_user",
+    password="you_password"
+)
+
+cursor = conexao.cursor()
+
+#CRUD
+
+#Create/Criar
+
+comando = 'INSERT INTO tb_usuarios (nome, senha) VALUES (\'Miguel\', \'12345\')'
+cursor.execute(comando)
+conexao.commit()#Edita alguma coisa do banco de dados 
+
+
+#Read/Ler
+
+comando = f'SELECT * FROM tb_usuarios'
+cursor.execute(comando)
+resultado = cursor.fetchall() # ler o banco de dados
+print(resultado)
+
+# Update/atualizar
+
+comando = f"UPDATE tb_usuarios SET senha = '9876' WHERE nome = 'Miguel'"
+cursor.execute(comando)
+conexao.commit() # edita o banco de dados
+
+# Delete/Deletar
+
+comando = f"DELETE FROM tb_usuarios WHERE id = '1'"
+cursor.execute(comando)
+conexao.commit() # edita o banco de dados
+
+#Finalizar
+
+cursor.close ()
+conexao.close ()
